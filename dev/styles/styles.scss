@@ -13,9 +13,16 @@ body {
 	text-transform: uppercase;
 }
 
+main {
+	height: 100vh
+}
+
 .wrapper {
 	max-width: 1000px;
+	min-height: 100vh;
 	margin: 0 auto;
+	position: relative;
+
 }
 
 h1 {
@@ -61,13 +68,14 @@ button {
 	justify-content: center;
 	h1 {
 		font-size: 6rem;
-		margin-bottom: 30px;
+		padding-bottom: 30px;
 	}
 	p {
 		font-size: 1.2rem;
 		font-weight: 300;
 		text-transform: none;
 		letter-spacing: 2px;
+		color: #ead78e;
 	}
 	.login-btn {
 		padding: 10px 40px;
@@ -80,36 +88,72 @@ button {
 }
 
 .logged-in-home {
-	margin-bottom: 60px;
-	.logo {
-		position: absolute;
-		height: 450px;
-	    right: 0px;
-	    bottom: 0;
-	    opacity: .3;
-	    z-index: -1;
+	padding-bottom: 30px;
+	// position: fixed;
+	// top: 0;
+	// z-index: 2;
+	// background: rgba(45,65,85,.9);
+	// width: 100%;
+	p {
+		margin: 0;
+		padding-top: 25px;
 	}
 }
 
-ul {
-	list-style: none;
+.add-card {
+	display: flex;
+	justify-content: center;
+}
+
+.card-container {
 	padding: 0;
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	li {
+	justify-content: space-between;
+	margin: 0;
+	padding-bottom: 30px;
+	.card-content {
 		color: #ECF0F1;
 		padding: 10px;
-		margin: 0 26px 26px 0;		
+		margin-top: 25px;		
 		border: 2px solid #ECF0F1;
 		border-radius: 5px;
 		background: rgba(225, 225, 225, .2);
-		height: 200px;
-		width: 200px;
+		height: 230px;
+		width: 230px;
 		text-align: center;
+		position: relative;
 		&:hover {
 			background: rgba(225, 225, 225, .2);
 		}
+		h3 {
+			margin-top: 25px;
+		}
+		p {
+			font-size: .9rem;
+		}
+		.close-btn-white {
+			position: absolute;
+			right: 0;
+			border: none;
+			background: none;
+			img {
+				width: 10px;
+				height: 10px;
+			}
+		}
+	}
+}
+
+.card-container {
+	img {
+		position: absolute;
+		height: 480px;
+	    right: 0;
+	    bottom: 0;
+	    opacity: .3;
+	    z-index: -1;
 	}
 }
 
@@ -120,7 +164,8 @@ ul {
 	border-radius: 5px;
 	margin: 0 auto;
     text-align: center;
-    position: relative;
+    position: absolute;
+    z-index: 10;
 	input, textarea {
 		font-family: 'Montserrat';
 		text-transform: uppercase;

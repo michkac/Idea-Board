@@ -26,7 +26,6 @@ class Header extends Component {
 		return(
 			<div className="logged-in-home">
 				<div className="header-left">
-					<img className="logo" src="../../dev/styles/assets/logo2.png"/>
 					<p>user name's</p>
 					<h1>Idea Garden</h1>
 				</div>
@@ -43,16 +42,20 @@ class Header extends Component {
 class CardContainer extends Component {
 	render() {
 		return (
-			<ul className= "card-content">
-				{this.props.cards.map( (card, index)=> {
-					return(
-						<li key={index}>
-							<h3>{card.title}</h3>
-							<p>{card.details}</p>
-						</li>
-					)
-				})}
-			</ul>
+			<div className="card-container">
+			{this.props.cards.map((card, index)=> {
+				return(
+				<div className= "card-content">
+					<button className="close-btn-white">
+						<img src="../../dev/styles/assets/closeWhite.png" />
+					</button>
+					<h3>{card.title}</h3>
+					<p>{card.details}</p>
+				</div>
+				)
+			})}
+			<img className="landingbackdrop" src="../../dev/styles/assets/logo2.png"/>
+			</div>
 		)
 	}
 }
