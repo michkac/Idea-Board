@@ -11,32 +11,35 @@ body {
 	background: #2D4155;
 	color: #ECF0F1;
 	text-transform: uppercase;
+	letter-spacing: 2px;
 }
 
 main {
-	height: 100vh
+	min-height: 100vh;
 }
 
 .wrapper {
-	max-width: 1000px;
-	min-height: 100vh;
+	max-width: 1025px;
 	margin: 0 auto;
-	position: relative;
-
 }
 
 h1 {
-	font-size: 3rem;
+	font-size: 2.5rem;
 	font-weight: 100;
-	margin: 10px 0;
+	transition: all .3s;
+	margin: 0;
+}
+
+img {
+	opacity: .9;
+	transition: all .3s
 }
 
 button {
 	background: none;
-	font-family: 'Montserrat';
 	font-size: .8rem;
 	font-weight: 300;
-	letter-spacing: 1px;
+	letter-spacing: 2px;
 	text-transform: uppercase;
 	color: #ECF0F1;
 	padding: 10px;
@@ -54,15 +57,10 @@ button {
 	background: #FFE98F;
 	border: 2px solid #FFE98F;
 	color: #2D4155;
-	&:hover {
-		background: #FFE98F;
-		border: 2px solid #FFE98F;
-		color: #2D4155;
-	}
 }
 
 .login-page {
-	height: 100vh; 
+	min-height: 100vh; 
 	display: flex; 
 	align-items: center; 
 	justify-content: center;
@@ -74,7 +72,6 @@ button {
 		font-size: 1.2rem;
 		font-weight: 300;
 		text-transform: none;
-		letter-spacing: 2px;
 		color: #ead78e;
 	}
 	.login-btn {
@@ -82,21 +79,34 @@ button {
 		font-size: 1.3rem;
 		margin-top: 30px;
 	}
-	img {
-		opacity: .9;
-	}
 }
 
-.logged-in-home {
-	padding-bottom: 30px;
-	// position: fixed;
-	// top: 0;
-	// z-index: 2;
-	// background: rgba(45,65,85,.9);
-	// width: 100%;
+.logged-in-home {	
+	position: fixed;
+	display: flex;
+	top: 0;
+	padding: 0 20px;
+	z-index: 2;
+	background: #2D4155;
+	background: rgba(45,65,85,.95);
+	width: 100%;
+	img {
+		height: 60px;
+		margin-top: 20px;	 
+		margin-right: 10px;
+	}
 	p {
 		margin: 0;
-		padding-top: 25px;
+		padding-top: 20px;
+	}
+	button {
+		margin-left: 13px;
+		margin-right: 0;
+		margin-top: 40px;
+	}
+	.header-right {
+		position: absolute;
+		right: 25px;
 	}
 }
 
@@ -107,16 +117,18 @@ button {
 
 .card-container {
 	padding: 0;
+	padding-top: 120px;
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
-	justify-content: space-between;
-	margin: 0;
+	max-width: 1025px;
+	justify-content: flex-start;
+	margin: 0 auto;
 	padding-bottom: 30px;
+	position: relative;
 	.card-content {
 		color: #ECF0F1;
 		padding: 10px;
-		margin-top: 25px;		
+		margin: 10px;		
 		border: 2px solid #ECF0F1;
 		border-radius: 5px;
 		background: rgba(225, 225, 225, .2);
@@ -128,14 +140,18 @@ button {
 			background: rgba(225, 225, 225, .2);
 		}
 		h3 {
-			margin-top: 25px;
+			margin-top: 40px;
+			font-size: 1rem;
+			color: #ffe98f;
 		}
 		p {
-			font-size: .9rem;
+			font-size: .8rem;
+			letter-spacing: 1px;
 		}
 		.close-btn-white {
 			position: absolute;
-			right: 0;
+			right: -10px;
+			top: 0px;
 			border: none;
 			background: none;
 			img {
@@ -146,17 +162,18 @@ button {
 	}
 }
 
-.card-container {
-	img {
-		position: absolute;
-		height: 480px;
-	    right: 0;
-	    bottom: 0;
-	    opacity: .3;
-	    z-index: -1;
-	}
+.form-modal {
+	position: fixed;
+	background: rgba(0,0,0,.5);
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 .new-idea-form {
 	background: #ECF0F1;
 	height: 320px;
@@ -164,12 +181,10 @@ button {
 	border-radius: 5px;
 	margin: 0 auto;
     text-align: center;
-    position: absolute;
-    z-index: 10;
+    position: relative;
 	input, textarea {
 		font-family: 'Montserrat';
 		text-transform: uppercase;
-		letter-spacing: 2px;
 		width: 80%;
 		padding: 10px;
 		text-align: center;
@@ -200,3 +215,122 @@ button {
 	}
 }
 
+@media (max-width: 1025px) {
+	img.logo {
+		width: 250px;
+	}
+	.login-page {
+		.login-btn {
+			font-size: 1rem;
+		}
+		h1 {
+	    	font-size: 4.5rem;
+		}	
+	}
+	.card-container {
+		max-width: 780px;
+	}
+}
+
+@media (max-width: 780px) {
+	.login-page {
+		text-align: center;
+		flex-direction: column;
+		img.logo {
+			width: 180px;
+			position: absolute;
+			top: 10px;
+			z-index: -3;
+			opacity: .2;
+		}
+		.login-btn {
+			font-size: 1rem;
+		}
+		h1 {
+			font-weight: 200;
+		}
+		
+	}
+	.card-container {
+		max-width: 500px;
+	}
+}
+
+@media (max-width: 650px) {
+	.logged-in-home {
+		flex-direction: column;
+	    .landingbackdrop {
+	    	height: 74px;
+	    	opacity: .2;
+	    	z-index: -20;
+	    	position: absolute;
+	    	left: 50%;
+	    	transform: translateX(-52%);
+	    }
+		.header-left {
+			text-align: center;
+			h1 {
+				font-size: 2rem;
+			}
+			p {
+				font-size: .8rem;
+				padding-top: 10px;
+			}
+		}
+		.header-right {
+			position: static;
+		    margin: 0 auto;
+		    right: 25px;
+		    button {
+				padding: 8px;
+				font-size: .6rem;
+				margin: 5px;
+		    }
+			.log-out-btn {
+				padding: 8px 12px;
+			}
+		}
+	}
+}
+
+@media (max-width: 510px) {
+	.card-container {
+    	max-width: 250px;
+	}
+}
+
+@media (max-width: 340px) {
+	.login-page {
+		h1 {
+			font-size: 3rem;
+			margin-bottom: 0;
+		}
+		p {
+			font-size: 1rem;
+		}
+		button {
+			
+		}
+		img.logo {
+			width: 150px;
+		}
+	}
+
+	.logged-in-home {
+		h1 {
+			font-size: 1.6rem;
+		}
+		p {
+    		font-size: .7rem;
+    	}
+    	.landingbackdrop {
+    		height: 70px;
+		}
+	}
+}
+
+@media (max-width: 260px) {
+	.logged-in-home .header-left h1 {
+	    font-size: 1.5rem;
+	}
+}

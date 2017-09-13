@@ -8,25 +8,28 @@ const cardRef = firebase.database().ref('/cards');
 class Landing extends Component {
 	render(){
 		return(
-			<div className="login-page">
-				<div className="headerContent">
-					<h1>Idea Garden</h1>
-					<p>Plant your ideas here.</p>
-					<button className="login-btn" onClick={this.props.login}>Log In</button>
+			<div className="wrapper">
+				<div className="login-page">
+					<div className="headerContent">
+						<h1>Idea Garden</h1>
+						<p>Plant your ideas here.</p>
+						<button className="login-btn" onClick={this.props.login}>Log In</button>
+					</div>
+					<img className="logo" src="../../dev/styles/assets/logo2.png"/>
 				</div>
-				<img className="logo" src="../../dev/styles/assets/logo2.png"/>
 			</div>
 		)
 	}
 }
 
-// logged in home header
+// logged-in page header
 class Header extends Component {
 	render(){
 		return(
 			<div className="logged-in-home">
+				<img className="landingbackdrop" src="../../dev/styles/assets/logo2.png"/>
 				<div className="header-left">
-					<p>user name's</p>
+					<p>{(this.props.user) ? `${this.props.user.displayName}'s` : "Not logged in." }</p>
 					<h1>Idea Garden</h1>
 				</div>
 				<div className="header-right">
@@ -38,23 +41,22 @@ class Header extends Component {
 	}
 }
 
-// container for displaying ideas
+// logged-in page container for displaying ideas
 class CardContainer extends Component {
 	render() {
 		return (
 			<div className="card-container">
-			{this.props.cards.map((card, index)=> {
-				return(
-				<div className= "card-content">
-					<button className="close-btn-white">
-						<img src="../../dev/styles/assets/closeWhite.png" />
-					</button>
-					<h3>{card.title}</h3>
-					<p>{card.details}</p>
-				</div>
-				)
-			})}
-			<img className="landingbackdrop" src="../../dev/styles/assets/logo2.png"/>
+				{this.props.cards.map((card)=> {
+					return(
+						<div className= "card-content" key={card.id}>
+							<button className="close-btn-white" onClick={() => this.props.handleRemoveItem(card.id)}>
+								<img className="close-btn-white-img" src="../../dev/styles/assets/closeWhite.png" />
+							</button>
+							<h3>{card.title}</h3>
+							<p>{card.details}</p>
+						</div>
+					)
+				})}
 			</div>
 		)
 	}
@@ -72,15 +74,18 @@ class App extends Component {
 			user: null,
 		}
 		this.createForm = this.createForm.bind(this);
+		this.closeForm = this.closeForm.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
+		this.getCards = this.getCards.bind(this);
 	}
 	login(e) {
 		e.preventDefault()
 		auth.signInWithPopup(provider) 
 		.then((result) => {
+			this.getCards();
 			const user = result.user;
 			this.setState({ user });
 		});
@@ -92,6 +97,8 @@ class App extends Component {
 			this.setState({ user: null });
 		});
 	}
+
+
 	handleChange(e) {
 	    this.setState({
 	    	[e.target.name]: e.target.value
@@ -99,17 +106,22 @@ class App extends Component {
 	}
 	handleSubmit(e) {
 		e.preventDefault();
-		const card = {
+		if (this.state.ideaName !== "" && this.state.ideaDetails !== "") { 
+			const card = {
 			ideatitle: this.state.ideaName,
 			ideadetails: this.state.ideaDetails
+			}
+			cardRef.push(card);
+			this.setState({
+				showForm: false,
+				ideaName: '',
+				ideaDetails: '',
+			}); 
+		} else {
+			alert('Plant an idea!');
 		}
-		cardRef.push(card);
-		this.setState({
-			ideatitle: '',
-			ideadetails: ''
-		});
 	}
-	componentDidMount() {
+	getCards() {
 		cardRef.on('value', (snapshot) => {
 			let cards = snapshot.val();
 			let newState = [];
@@ -125,8 +137,11 @@ class App extends Component {
 		    });
 		});
 	}
-	removeItem(itemId) {
-		const cardRef = firebase.database().ref(`/cards/${cardId}`);
+	componentDidMount() {
+		this.getCards();
+	}
+	removeItem(key) {
+		const cardRef = firebase.database().ref(`/cards/${key}`);
 		cardRef.remove();
 	}
 	createForm(){
@@ -134,26 +149,36 @@ class App extends Component {
 			showForm: true
 		})
 	}
+	closeForm(){
+		this.setState({
+			showForm: false,
+			ideaName: '',
+			ideaDetails: '',
+		})
+	}
+
     render() {
 	    let showForm = (
-	    	<form className="new-idea-form" onSubmit={this.handleSubmit}>
-	    		<button className="close-btn">
-	    			<img src="../../dev/styles/assets/close.png" />
-	    		</button>
-	    		<input className="ideaName" type="text" name= "ideaName" placeholder="Idea title" onChange={this.handleChange} value={this.state.ideaName}/>
-	    		<textarea className="ideaDetails" name="ideaDetails" cols="30" rows="8" placeholder="Idea details" onChange={this.handleChange} value={this.state.ideaDetails}/>
-	    		<button className="create-btn">Create</button>
-	    	</form>
+	    	<div className="form-modal">
+		    	<form className="new-idea-form" onSubmit={this.handleSubmit}>
+		    		<button className="close-btn" onClick={this.closeForm}>
+		    			<img src="../../dev/styles/assets/close.png" />
+		    		</button>
+		    		<input className="ideaName" type="text" name= "ideaName" placeholder="Idea title" onChange={this.handleChange} value={this.state.ideaName}/>
+		    		<textarea className="ideaDetails" name="ideaDetails" cols="30" rows="8" placeholder="Idea details" onChange={this.handleChange} value={this.state.ideaDetails}/>
+		    		<button className="create-btn">Create</button>
+		    	</form>
+	    	</div>
 	    )
 	    return (
 	        <main>
-		        <div className="wrapper">
+		        <div>
 		        	{ !this.state.user && <Landing login={this.login} />}
-			        { this.state.user && <Header createForm={this.createForm} logout={this.logout} />}
+			        { this.state.user && <Header user={this.state.user} createForm={this.createForm} logout={this.logout} />}
 			        <div className="add-card">
 			        	{this.state.showForm === true ? showForm : null}
 			        </div>
-			        { this.state.user && <CardContainer cards={this.state.cards}/>}
+			        { this.state.user && <CardContainer cards={this.state.cards} handleRemoveItem={this.removeItem}/>}
 		        </div>
 	        </main>
 	    )
