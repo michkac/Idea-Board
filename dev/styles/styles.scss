@@ -46,7 +46,6 @@ button {
 	margin-right: 13px;
 	border: 2px solid #ECF0F1;
 	border-radius: 5px;
-	background: rgba(225, 225, 225, .2);
 	transition: all .3s;
 	&:hover {
 		background: #ECF0F1;
@@ -132,29 +131,29 @@ button {
 	padding-bottom: 30px;
 	position: relative;
 	.card-content {
-		color: #ECF0F1;
+		color: #243444;
 		padding: 10px;
 		margin: 10px;		
 		border: 2px solid #ECF0F1;
 		border-radius: 5px;
 		background: rgba(225, 225, 225, .2);
+		background: #ECF0F1;
 		height: 230px;
 		width: 230px;
+		font-weight: 200;
 		text-align: center;
 		position: relative;
-		&:hover {
-			background: rgba(225, 225, 225, .2);
-		}
 		h3 {
-			margin-top: 40px;
+			margin-top: 20px;
+			padding-bottom: 10px;
 			font-size: 1rem;
-			color: #ffe98f;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		}
 		p {
 			font-size: .8rem;
 			letter-spacing: 1px;
 		}
-		.close-btn-white {
+		.close-btn {
 			position: absolute;
 			right: -10px;
 			top: 0px;

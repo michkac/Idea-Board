@@ -49,8 +49,8 @@ class CardContainer extends Component {
 				{this.props.cards.map((card)=> {
 					return(
 						<div className= "card-content" key={card.id}>
-							<button className="close-btn-white" onClick={() => this.props.handleRemoveItem(card.id)}>
-								<img className="close-btn-white-img" src="../../dev/styles/assets/closeWhite.png" />
+							<button className="close-btn" onClick={() => this.props.handleRemoveItem(card.id)}>
+								<img className="close-btn-img" src="../../dev/styles/assets/close.png" />
 							</button>
 							<h3>{card.title}</h3>
 							<p>{card.details}</p>
