@@ -15,7 +15,7 @@ class Landing extends Component {
 						<p>Plant your ideas here.</p>
 						<button className="login-btn" onClick={this.props.login}>Log In</button>
 					</div>
-					<img className="logo" src="../../dev/styles/assets/logo2.png"/>
+					<img className="logo" src="./public/assets/logo2.png"/>
 				</div>
 			</div>
 		)
@@ -27,7 +27,7 @@ class Header extends Component {
 	render(){
 		return(
 			<div className="logged-in-home">
-				<img className="landingbackdrop" src="../../dev/styles/assets/logo2.png"/>
+				<img className="landingbackdrop" src="./public/styles/assets/logo2.png"/>
 				<div className="header-left">
 					<p>{(this.props.user) ? `${this.props.user.displayName}'s` : "Not logged in." }</p>
 					<h1>Idea Garden</h1>
@@ -50,7 +50,7 @@ class CardContainer extends Component {
 					return(
 						<div className= "card-content" key={card.id}>
 							<button className="close-btn" onClick={() => this.props.handleRemoveItem(card.id)}>
-								<img className="close-btn-img" src="../../dev/styles/assets/close.png" />
+								<img className="close-btn-img" src="./public/assets/close.png" />
 							</button>
 							<h3>{card.title}</h3>
 							<p>{card.details}</p>
@@ -139,6 +139,7 @@ class App extends Component {
 	}
 	componentDidMount() {
 		this.getCards();
+
 	}
 	removeItem(key) {
 		const cardRef = firebase.database().ref(`/cards/${key}`);
@@ -162,7 +163,7 @@ class App extends Component {
 	    	<div className="form-modal">
 		    	<form className="new-idea-form" onSubmit={this.handleSubmit}>
 		    		<button className="close-btn" onClick={this.closeForm}>
-		    			<img src="../../dev/styles/assets/close.png" />
+		    			<img src="./public/assets/close.png" />
 		    		</button>
 		    		<input className="ideaName" type="text" name= "ideaName" placeholder="Idea title" onChange={this.handleChange} value={this.state.ideaName}/>
 		    		<textarea className="ideaDetails" name="ideaDetails" cols="30" rows="8" placeholder="Idea details" onChange={this.handleChange} value={this.state.ideaDetails}/>
